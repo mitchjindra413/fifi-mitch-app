@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   web:
+    container_name: fifi-mitch
     build:
       context: .
       dockerfile: Dockerfile
@@ -14,10 +15,16 @@ services:
       DATABASE_URL: postgres://postgres:password@postgres:5432/nextjsdb
 
   postgres:
+    container_name: fifi-mitch-db
     image: postgres:15
+    volumes: 
+      - tmp_db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     environment:
       POSTGRES_DB: nextjsdb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
+
+volumes:
+  tmp_db:
